@@ -18,7 +18,7 @@ public class Calculator
                     throw new DivideByZeroException();
                 return num1 / num2;
             default:
-                throw new Exception("\nAn error occurred: The specified operation is not supported.\n");
+                throw new ArgumentException("\nAn error occurred: The specified operation is not supported.\n");
         }
     }
 }

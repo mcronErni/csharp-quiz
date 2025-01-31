@@ -29,6 +29,10 @@ class Program
         {
             Console.WriteLine("Cannot divide by zero.");
         }
+        catch(ArgumentException e)
+        {
+            Console.WriteLine(e.Message.ToString());
+        }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message.ToString());
