@@ -23,11 +23,11 @@ class Program
         }
         catch (FormatException)
         {
-            Console.WriteLine("\nPlease Enter a Number.\n");
+            Console.WriteLine("\nInvalid input. Please enter numeric values.\n");
         }
         catch (DivideByZeroException)
         {
-            Console.WriteLine("You can't divide by 0");
+            Console.WriteLine("Cannot divide by zero.");
         }
         catch (Exception ex)
         {
