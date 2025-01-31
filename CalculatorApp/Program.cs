@@ -4,19 +4,38 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Enter the first number:");
-        double num1 = Convert.ToDouble(Console.ReadLine());
+        try
+        {
 
-        Console.WriteLine("Enter the second number:");
-        double num2 = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enter the first number:");
+            double num1 = Convert.ToDouble(Console.ReadLine());
 
-        Console.WriteLine("Enter the operation (add, subtract, multiply, divide):");
-        string operation = Console.ReadLine()?.ToLower() ?? string.Empty;
+            Console.WriteLine("Enter the second number:");
+            double num2 = Convert.ToDouble(Console.ReadLine());
 
-        var calculator = new Calculator();    
-        double result = calculator.PerformOperation(num1, num2, operation);
-        Console.WriteLine($"The result is: {result}");
+            Console.WriteLine("Enter the operation (add, subtract, multiply, divide):");
+            string operation = Console.ReadLine()?.ToLower() ?? string.Empty;
 
-        Console.WriteLine("Calculation attempt finished.");
+            var calculator = new Calculator();
+            double result = calculator.PerformOperation(num1, num2, operation);
+            Console.WriteLine($"The result is: {result}");
+
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("\nPlease Enter a Number.\n");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("You can't divide by 0");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message.ToString());
+        }
+        finally
+        {
+            Console.WriteLine("Calculation attempt finished.");
+        }
     }
 }
