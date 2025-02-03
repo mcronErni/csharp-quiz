@@ -1,9 +1,24 @@
-﻿namespace CalculatorApp;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+namespace CalculatorApp;
 
 class Program
 {
     static void Main(string[] args)
     {
+        //using ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+        //{
+        //    builder.AddConsole(); 
+        //});
+
+        //ILogger program = loggerFactory.CreateLogger<Program>();
+
+        using var serviceProvider = new ServiceCollection()
+            .AddLogging(configure => configure.AddConsole())
+            .BuildServiceProvider();
+        var program = serviceProvider.GetRequiredService<ILogger<Program>>();
+
         try
         {
 
@@ -21,21 +36,25 @@ class Program
             Console.WriteLine($"The result is: {result}");
 
         }
-        catch (FormatException)
+        catch (FormatException ex)
         {
             Console.WriteLine("\nInvalid input. Please enter numeric values.\n");
+            program.LogError($"{DateTime.Now} : Format Exception Occured.\n{ex}");
         }
-        catch (DivideByZeroException)
+        catch (DivideByZeroException ex)
         {
             Console.WriteLine("Cannot divide by zero.");
+            program.LogError($"{DateTime.Now} : Cannot divide by zero.\n{ex}");
         }
         catch(ArgumentException e)
         {
             Console.WriteLine(e.Message.ToString());
+            program.LogError($"{DateTime.Now} : Something went wrong.\n{e}");
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message.ToString());
+            program.LogError($"{DateTime.Now} : Something went wrong.\n{ex}");
         }
         finally
         {
